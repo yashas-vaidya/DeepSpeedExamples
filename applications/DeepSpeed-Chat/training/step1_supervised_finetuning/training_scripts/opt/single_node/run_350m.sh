@@ -7,8 +7,11 @@
 # Copied from applications/DeepSpeed-Chat/training/step1_supervised_finetuning/training_scripts/opt/single_node/run_1.3b_lora.sh
 
 # Note that usually LoRA needs to use larger learning rate
-OUTPUT_PATH=./output
-mkdir -p $OUTPUT_PATH
+OUTPUT=$1
+if [ "$OUTPUT" == "" ]; then
+    OUTPUT=./output
+fi
+mkdir -p $OUTPUT
 
 deepspeed main.py \
    --data_path Dahoas/rm-static Dahoas/full-hh-rlhf Dahoas/synthetic-instruct-gptj-pairwise yitingxie/rlhf-reward-datasets \
@@ -29,5 +32,5 @@ deepspeed main.py \
    --lora_module_name decoder.layers. \
    --only_optimize_lora \
    --deepspeed \
-   --output_dir $OUTPUT_PATH \
-   &> $OUTPUT_PATH/training.log
+   --output_dir $OUTPUT \
+   &> $OUTPUT/training.log
