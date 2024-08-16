@@ -27,13 +27,13 @@ Critic_Lr=5e-6
 mkdir -p $OUTPUT
 
 deepspeed --master_port 12346 main.py \
-   --data_path Dahoas/rm-static \
+   --data_path Dahoas/full-hh-rlhf \
    --data_split 2,4,4 \
    --actor_model_name_or_path $ACTOR_MODEL_PATH \
    --critic_model_name_or_path $CRITIC_MODEL_PATH \
    --num_padding_at_beginning 1 \
-   --per_device_generation_batch_size 4 \
-   --per_device_training_batch_size 4 \
+   --per_device_generation_batch_size 8 \
+   --per_device_training_batch_size 8 \
    --generation_batches 1 \
    --ppo_epochs 1 \
    --max_answer_seq_len 256 \
