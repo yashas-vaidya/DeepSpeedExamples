@@ -10,6 +10,9 @@ OUTPUT=$1
 if [ "$OUTPUT" == "" ]; then
     OUTPUT=./output
 fi
+if [ "$ZERO_STAGE" == "" ]; then
+    ZERO_STAGE=0
+fi
 mkdir -p $OUTPUT
 
 deepspeed main.py \
